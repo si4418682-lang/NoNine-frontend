@@ -1,653 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>No. Nine Café</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-/* ---------------- GLOBAL ---------------- */
-html{scroll-behavior:smooth;}
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-  font-family:'Inter',sans-serif;
-  background:#f6f3ef;
-  color:#1e1e1e;
-}
-
-/* ---------------- NAVBAR (LOCKED) ---------------- */
-.navbar{
-  position:absolute;
-  top:0;left:0;
-  width:100%;
-  padding:30px 80px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:10;
-}
-
-.brand{
-  font-family:'Playfair Display',serif;
-  font-size:30px;
-  color:white;
-}
-
-.nav-links{
-  display:flex;
-  gap:36px;
-}
-
-.nav-links a{
-  color:white;
-  text-decoration:none;
-  font-weight:600;
-  padding:10px 14px;
-  position:relative;
-}
-
-.nav-links a::after{
-  content:'';
-  position:absolute;
-  left:50%;
-  bottom:4px;
-  width:0;
-  height:1.5px;
-  background:#c8a97e;
-  transform:translateX(-50%);
-  transition:.35s;
-}
-
-.nav-links a:hover::after{width:70%;}
-
-/* ---------------- HERO (LOCKED) ---------------- */
-.hero{
-  height:100vh;
-  background:url('hero.jpg') center/cover no-repeat;
-  position:relative;
-}
-
-.hero::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  align-items:center;
-  padding-left:80px;
-  color:white;
-}
-
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:4.5rem;
-  max-width:720px;
-}
-
-/* ---------------- CARDS (LOCKED DESIGN) ---------------- */
-.experience{
-  padding:120px 80px;
-  background:white;
-}
-
-.experience-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:40px;
-}
-
-.exp-card{
-  background:white;
-  border-radius:18px;
-  padding:42px 36px;
-  box-shadow:0 25px 60px rgba(0,0,0,0.08);
-  transition:transform .35s ease, box-shadow .35s ease;
-}
-
-/* Hover effect */
-.exp-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 35px 80px rgba(0,0,0,0.14);
-}
-
-/* Optional: subtle icon emphasis on hover */
-.exp-card:hover .exp-icon{
-  transform:scale(1.08);
-  opacity:1;
-}
-
-.exp-icon{
-  font-size:26px;
-  margin-bottom:18px;
-  opacity:.85;
-  transition:transform .35s ease, opacity .35s ease;
-}
-
-.exp-icon{
-  font-size:26px;
-  margin-bottom:18px;
-}
-
-.exp-card h3{
-  font-family:'Playfair Display',serif;
-  margin-bottom:10px;
-}
-
-.exp-card p{
-  line-height:1.6;
-  opacity:.85;
-}
-
-/* ---------------- GALLERY (UNCHANGED) ---------------- */
-/* ---------------- MINI GALLERY (HOME) ---------------- */
-.gallery{
-  padding:90px 80px;
-  background:linear-gradient(
-    to bottom,
-    #f6f3ef 0%,
-    #efe9e2 100%
-  );
-}
-
-.gallery-header{
-  margin-bottom:40px;
-}
-
-.gallery-header h3{
-  font-family:'Playfair Display',serif;
-  font-size:2.4rem;
-  font-weight:600;
-}
-
-.mini-gallery{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:36px;
-}
-
-.mini-card{
-  position:relative;
-  overflow:hidden;
-  border-radius:18px;
-  height:320px;
-  box-shadow:0 22px 55px rgba(0,0,0,0.14);
-}
-
-.mini-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform 1s ease;
-}
-
-/* Soft premium hover */
-.mini-card::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.28);
-  opacity:0;
-  transition:.6s ease;
-}
-
-.mini-card:hover img{
-  transform:scale(1.08);
-}
-
-.mini-card:hover::after{
-  opacity:1;
-}
-
-/* Responsive */
-@media(max-width:700px){
-  .mini-gallery{
-    grid-template-columns:1fr;
-  }
-  .mini-card{
-    height:260px;
-  }
-}
-
-/* ---------------- HOST EVENTS (LOCKED + BG IMAGE) ---------------- */
-.host{
-  position:relative;
-  height:100vh;
-  background:url('EVENT.jpg') center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:white;
-}
-
-.host::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.65);
-}
-
-.host-content{
-  position:relative;
-  z-index:2;
-}
-
-.host h2{
-  font-family:'Playfair Display',serif;
-  font-size:3.2rem;
-}
-
-.host p{
-  margin:18px auto 40px;
-  max-width:600px;
-  opacity:.9;
-}
-
-.book-btn{
-  display:inline-block;
-  padding:18px 54px;
-  border:1.5px solid #c8a97e;
-  border-radius:50px;
-  color:#c8a97e;
-  text-decoration:none;
-  transition:.3s ease;
-}
-
-.book-btn:hover{
-  background:#c8a97e;
-  color:#111;
-  box-shadow:0 12px 40px rgba(200,169,126,.4);
-}
-
-/* ================= CONTACT ================= */
-
-/* ================= CONTACT (EDITORIAL GLOSSY) ================= */
-
-.contact-section{
-  min-height:100vh;
-  padding:120px 80px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(200,169,126,0.25), transparent 55%),
-    linear-gradient(to bottom, #f6f3ef 0%, #efe9e2 100%);
-}
-
-/* Card */
-.contact-card{
-  max-width:760px;
-  width:100%;
-  padding:60px 55px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.85),
-      rgba(255,255,255,0.75)
-    );
-  border-radius:28px;
-  box-shadow:
-    0 40px 80px rgba(0,0,0,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.9);
-  position:relative;
-  overflow:hidden;
-}
-
-/* Gloss highlight */
-.contact-card::before{
-  content:'';
-  position:absolute;
-  top:-40%;
-  left:-30%;
-  width:120%;
-  height:120%;
-  background:radial-gradient(
-    circle,
-    rgba(255,255,255,0.35),
-    transparent 60%
-  );
-  pointer-events:none;
-}
-
-/* Headings */
-.contact-title{
-  text-align:center;
-  font-family:'Playfair Display',serif;
-  font-size:2.6rem;
-  color:#1e1e1e;
-}
-
-.contact-subtitle{
-  text-align:center;
-  margin:10px auto 45px;
-  max-width:420px;
-  font-size:14px;
-  line-height:1.7;
-  color:rgba(0,0,0,0.65);
-}
-
-/* Form */
-.contact-form{
-  display:flex;
-  flex-direction:column;
-  gap:30px;
-}
-
-.form-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:28px;
-}
-
-/* Inputs */
-.input-group{
-  position:relative;
-}
-
-.input-group input,
-.input-group textarea{
-  width:100%;
-  padding:16px 8px;
-  font-size:14px;
-  background:transparent;
-  border:none;
-  border-bottom:1.4px solid rgba(0,0,0,0.25);
-  color:#1e1e1e;
-  outline:none;
-  transition:.35s ease;
-}
-
-.input-group textarea{
-  resize:none;
-}
-
-/* Labels */
-.input-group label{
-  position:absolute;
-  left:0;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:13px;
-  color:rgba(0,0,0,0.55);
-  pointer-events:none;
-  transition:.3s ease;
-}
-
-/* Focus */
-.input-group input:focus,
-.input-group textarea:focus{
-  border-color:#c8a97e;
-}
-
-.input-group input:focus + label,
-.input-group textarea:focus + label,
-.input-group input:not(:placeholder-shown) + label,
-.input-group textarea:not(:placeholder-shown) + label{
-  top:-8px;
-  font-size:11px;
-  color:#c8a97e;
-}
-
-/* Button */
-.submit-btn{
-  margin-top:18px;
-  align-self:flex-start;
-  padding:15px 48px;
-  border-radius:50px;
-  border:1.5px solid #c8a97e;
-  background:transparent;
-  color:#1e1e1e;
-  font-weight:500;
-  cursor:pointer;
-  transition:.35s ease;
-}
-
-.submit-btn:hover{
-  background:#c8a97e;
-  color:#111;
-  box-shadow:0 15px 35px rgba(200,169,126,.35);
-}
-
-/* Responsive */
-@media(max-width:900px){
-  .contact-section{
-    padding:100px 30px;
-  }
-
-  .contact-card{
-    padding:45px 35px;
-  }
-
-  .form-row{
-    grid-template-columns:1fr;
-  }
-}
-
-/* Responsive */
-@media(max-width:900px){
-  .contact-clean{
-    padding:110px 30px;
-  }
-
-  .contact-inner{
-    grid-template-columns:1fr;
-    gap:60px;
-  }
-
-  .contact-form-clean .row{
-    flex-direction:column;
-  }
-}
-
-/* ---------------- VISIT (LOCKED EXACT STYLE) ---------------- */
-.visit{
-  position:relative;
-  padding:150px 80px;
-  background:#f4f1ec;
-  text-align:center;
-  overflow:hidden;
-}
-
-.visit::before{
-  content:'NO. NINE';
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-family:'Playfair Display',serif;
-  font-size:12rem;
-  color:rgba(0,0,0,0.05);
-  white-space:nowrap;
-}
-
-.visit h3{
-  position:relative;
-  font-family:'Playfair Display',serif;
-  font-size:2.8rem;
-}
-
-.visit p{
-  position:relative;
-  margin-top:12px;
-}
-
-/* ---------------- FOOTER ---------------- */
-footer{
-  background:#111;
-  color:#aaa;
-  padding:40px;
-  text-align:center;
-}
-
-/* ---------------- RESPONSIVE ---------------- */
-@media(max-width:900px){
-  .experience-grid{grid-template-columns:1fr 1fr;}
-}
-
-@media(max-width:600px){
-  .experience-grid{grid-template-columns:1fr;}
-  .hero h1{font-size:3rem;}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No. Nine Café</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ---------------- GLOBAL ---------------- */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f3ef;
+      color: #1e1e1e;
+    }
+
+    /* ---------------- NAVBAR (LOCKED) ---------------- */
+    .navbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 14px;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      width: 0;
+      height: 1.5px;
+      background: #c8a97e;
+      transform: translateX(-50%);
+      transition: .35s;
+    }
+
+    .nav-links a:hover::after {
+      width: 70%;
+    }
+
+    /* ---------------- HERO (LOCKED) ---------------- */
+    .hero {
+      height: 100vh;
+      background: url('hero.jpg') center/cover no-repeat;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 80px;
+      color: white;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      max-width: 720px;
+    }
+
+    /* ---------------- CARDS (LOCKED DESIGN) ---------------- */
+    .experience {
+      padding: 120px 80px;
+      background: white;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .exp-card {
+      background: white;
+      border-radius: 18px;
+      padding: 42px 36px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    /* Hover effect */
+    .exp-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.14);
+    }
+
+    /* Optional: subtle icon emphasis on hover */
+    .exp-card:hover .exp-icon {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    .exp-icon {
+      font-size: 26px;
+      margin-bottom: 18px;
+      opacity: .85;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+
+    .exp-icon {
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .exp-card h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+
+    .exp-card p {
+      line-height: 1.6;
+      opacity: .85;
+    }
+
+    /* ---------------- GALLERY (UNCHANGED) ---------------- */
+    /* ---------------- MINI GALLERY (HOME) ---------------- */
+    .gallery {
+      padding: 90px 80px;
+      background: linear-gradient(to bottom,
+          #f6f3ef 0%,
+          #efe9e2 100%);
+    }
+
+    .gallery-header {
+      margin-bottom: 40px;
+    }
+
+    .gallery-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+
+    .mini-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+
+    .mini-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      height: 320px;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.14);
+    }
+
+    .mini-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+
+    /* Soft premium hover */
+    .mini-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      transition: .6s ease;
+    }
+
+    .mini-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .mini-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media(max-width:700px) {
+      .mini-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-card {
+        height: 260px;
+      }
+    }
+
+    /* ---------------- HOST EVENTS (LOCKED + BG IMAGE) ---------------- */
+    .host {
+      position: relative;
+      height: 100vh;
+      background: url('EVENT.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .host::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .host-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .host h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+    }
+
+    .host p {
+      margin: 18px auto 40px;
+      max-width: 600px;
+      opacity: .9;
+    }
+
+    .book-btn {
+      display: inline-block;
+      padding: 18px 54px;
+      border: 1.5px solid #c8a97e;
+      border-radius: 50px;
+      color: #c8a97e;
+      text-decoration: none;
+      transition: .3s ease;
+    }
+
+    .book-btn:hover {
+      background: #c8a97e;
+      color: #111;
+      box-shadow: 0 12px 40px rgba(200, 169, 126, .4);
+    }
+
+    /* ================= CONTACT ================= */
+
+    /* ================= CONTACT (EDITORIAL GLOSSY) ================= */
+
+    .contact-section {
+      min-height: 100vh;
+      padding: 120px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(200, 169, 126, 0.25), transparent 55%),
+        linear-gradient(to bottom, #f6f3ef 0%, #efe9e2 100%);
+    }
+
+    /* Card */
+    .contact-card {
+      max-width: 760px;
+      width: 100%;
+      padding: 60px 55px;
+      background:
+        linear-gradient(180deg,
+          rgba(255, 255, 255, 0.85),
+          rgba(255, 255, 255, 0.75));
+      border-radius: 28px;
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gloss highlight */
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -30%;
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.35),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Headings */
+    .contact-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      color: #1e1e1e;
+    }
+
+    .contact-subtitle {
+      text-align: center;
+      margin: 10px auto 45px;
+      max-width: 420px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(0, 0, 0, 0.65);
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    /* Inputs */
+    .input-group {
+      position: relative;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 16px 8px;
+      font-size: 14px;
+      background: transparent;
+      border: none;
+      border-bottom: 1.4px solid rgba(0, 0, 0, 0.25);
+      color: #1e1e1e;
+      outline: none;
+      transition: .35s ease;
+    }
+
+    .input-group textarea {
+      resize: none;
+    }
+
+    /* Labels */
+    .input-group label {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      transition: .3s ease;
+    }
+
+    /* Focus */
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: #c8a97e;
+    }
+
+    .input-group input:focus+label,
+    .input-group textarea:focus+label,
+    .input-group input:not(:placeholder-shown)+label,
+    .input-group textarea:not(:placeholder-shown)+label {
+      top: -8px;
+      font-size: 11px;
+      color: #c8a97e;
+    }
+
+    /* Button */
+    .submit-btn {
+      margin-top: 18px;
+      align-self: flex-start;
+      padding: 15px 48px;
+      border-radius: 50px;
+      border: 1.5px solid #c8a97e;
+      background: transparent;
+      color: #1e1e1e;
+      font-weight: 500;
+      cursor: pointer;
+      transition: .35s ease;
+    }
+
+    .submit-btn:hover {
+      background: #c8a97e;
+      color: #111;
+      box-shadow: 0 15px 35px rgba(200, 169, 126, .35);
+    }
+
+    /* Responsive */
+    @media(max-width:900px) {
+      .contact-section {
+        padding: 100px 30px;
+      }
+
+      .contact-card {
+        padding: 45px 35px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Responsive */
+    @media(max-width:900px) {
+      .contact-clean {
+        padding: 110px 30px;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .contact-form-clean .row {
+        flex-direction: column;
+      }
+    }
+
+    /* ---------------- VISIT (LOCKED EXACT STYLE) ---------------- */
+    .visit {
+      position: relative;
+      padding: 150px 80px;
+      background: #f4f1ec;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .visit::before {
+      content: 'NO. NINE';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 12rem;
+      color: rgba(0, 0, 0, 0.05);
+      white-space: nowrap;
+    }
+
+    .visit h3 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+    }
+
+    .visit p {
+      position: relative;
+      margin-top: 12px;
+    }
+
+    /* ---------------- FOOTER ---------------- */
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* ---------------- RESPONSIVE ---------------- */
+    @media(max-width:900px) {
+      .experience-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px) {
+      .experience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<section class="hero" id="home">
-  <div class="navbar">
-    <div class="brand">No. Nine</div>
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="menu.html">Menu</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="visit">Visit</a>
-    </div>
-  </div>
-
-  <div class="hero-content">
-    <h1>A quiet place for thoughtful coffee.</h1>
-  </div>
-</section>
-
-<section class="experience" id="menu">
-  <div class="experience-grid">
-    <div class="exp-card">
-      <div class="exp-icon">☕</div>
-      <h3>Artisan Coffee</h3>
-      <p>Thoughtfully sourced, precisely brewed.</p>
-    </div>
-    <div class="exp-card">
-      <div class="exp-icon">🪑</div>
-      <h3>Designed Space</h3>
-      <p>Material, light, and calm balance.</p>
-    </div>
-    <div class="exp-card">
-      <div class="exp-icon">👥</div>
-      <h3>Community</h3>
-      <p>Events, conversations, gatherings.</p>
-    </div>
-    <div class="exp-card">
-      <div class="exp-icon">🌿</div>
-      <h3>Seasonal Menu</h3>
-      <p>Fresh, evolving selections.</p>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="gallery">
-  
-  <div class="gallery-header">
-    <h3>Our Space</h3>
-  </div>
-
-  <div class="mini-gallery">
-
-    <div class="mini-card">
-      </a><img src="cafe-day.jpg.png" alt="Cafe Day View">
-     
+  <section class="hero" id="home">
+    <div class="navbar">
+      <div class="brand">No. Nine</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="visit">Visit</a>
+      </div>
     </div>
 
-    <div class="mini-card">
-      <img src="cafe-night.jpg.png" alt="Cafe Night View">
-      
+    <div class="hero-content">
+      <h1>A quiet place for thoughtful coffee.</h1>
     </div>
-</section>
+  </section>
+
+  <section class="experience" id="menu">
+    <div class="experience-grid">
+      <div class="exp-card">
+        <div class="exp-icon">☕</div>
+        <h3>Artisan Coffee</h3>
+        <p>Thoughtfully sourced, precisely brewed.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🪑</div>
+        <h3>Designed Space</h3>
+        <p>Material, light, and calm balance.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">👥</div>
+        <h3>Community</h3>
+        <p>Events, conversations, gatherings.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🌿</div>
+        <h3>Seasonal Menu</h3>
+        <p>Fresh, evolving selections.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+
+    <div class="gallery-header">
+      <h3>Our Space</h3>
+    </div>
+
+    <div class="mini-gallery">
+
+      <div class="mini-card">
+        </a><img src="cafe-day.jpg.png" alt="Cafe Day View">
+
+      </div>
+
+      <div class="mini-card">
+        <img src="cafe-night.jpg.png" alt="Cafe Night View">
+
+      </div>
+  </section>
 
 
-<section class="host">
-  <div class="host-content">
-    <h2>Host Your Moments</h2>
-    <p>Private gatherings, curated events, meaningful moments.</p>
-    <a href="#" class="book-btn">Book for Events</a>
-  </div>
-</section>
+  <section class="host">
+    <div class="host-content">
+      <h2>Host Your Moments</h2>
+      <p>Private gatherings, curated events, meaningful moments.</p>
+      <a href="#" class="book-btn">Book for Events</a>
+    </div>
+  </section>
 
-<!-- ================= CONTACT ================= -->
-<section class="contact-section" id="contact">
-  <div class="contact-card">
-    <h2 class="contact-title">Get in Touch</h2>
-    <p class="contact-subtitle">
-      Reservations, collaborations, or just a quiet hello.
-    </p>
+  <!-- ================= CONTACT ================= -->
+  <section class="contact-section" id="contact">
+    <div class="contact-card">
+      <h2 class="contact-title">Get in Touch</h2>
+      <p class="contact-subtitle">
+        Reservations, collaborations, or just a quiet hello.
+      </p>
 
-    <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
+      <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
 
-      <div class="form-row">
-        <div class="input-group">
-          <input type="text" name="name" required placeholder=" " />
-          <label>Full Name</label>
+        <div class="form-row">
+          <div class="input-group">
+            <input type="text" name="name" required placeholder=" " />
+            <label>Full Name</label>
+          </div>
+
+          <div class="input-group">
+            <input type="email" name="email" required placeholder=" " />
+            <label>Email Address</label>
+          </div>
         </div>
 
         <div class="input-group">
-          <input type="email" name="email" required placeholder=" " />
-          <label>Email Address</label>
+          <input type="text" name="subject" required placeholder=" " />
+          <label>Subject</label>
         </div>
-      </div>
 
-      <div class="input-group">
-        <input type="text" name="subject" required placeholder=" " />
-        <label>Subject</label>
-      </div>
+        <div class="input-group">
+          <textarea name="message" rows="5" required placeholder=" "></textarea>
+          <label>Your Message</label>
+        </div>
 
-      <div class="input-group">
-        <textarea name="message" rows="5" required placeholder=" "></textarea>
-        <label>Your Message</label>
-      </div>
+        <button type="submit" class="submit-btn">
+          Send Message
+        </button>
 
-      <button type="submit" class="submit-btn">
-        Send Message
-      </button>
+        <div id="formSuccess"
+          style="display:none;margin-top:16px;padding:14px 20px;background:#c8a97e;color:#111;border-radius:12px;font-weight:500;text-align:center;">
+          ✓ Thank you! Your message has been received.
+        </div>
 
-      <div id="formSuccess" style="display:none;margin-top:16px;padding:14px 20px;background:#c8a97e;color:#111;border-radius:12px;font-weight:500;text-align:center;">
-        ✓ Thank you! Your message has been received.
-      </div>
+      </form>
 
-    </form>
+      <script>
+        function handleContactSubmit(e) {
+          e.preventDefault();
+          const form = e.target;
+          const btn = form.querySelector('.submit-btn');
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
 
-    <script>
-    function handleContactSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('.submit-btn');
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
-
-      // Simulate send (replace with a real endpoint like Formspree/Netlify Forms if needed)
-      setTimeout(function() {
-        form.reset();
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-        document.getElementById('formSuccess').style.display = 'block';
-        setTimeout(function() {
-          document.getElementById('formSuccess').style.display = 'none';
-        }, 4000);
-      }, 800);
-    }
-    </script>
-  </div>
-</section>
+          // Simulate send (replace with a real endpoint like Formspree/Netlify Forms if needed)
+          setTimeout(function () {
+            form.reset();
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+            document.getElementById('formSuccess').style.display = 'block';
+            setTimeout(function () {
+              document.getElementById('formSuccess').style.display = 'none';
+            }, 4000);
+          }, 800);
+        }
+      </script>
+    </div>
+  </section>
 
 
 
-<section class="visit" id="visit">
-  <h3>Visit No. Nine</h3>
-  <p>Monday – Sunday · <strong>9:00 AM – 9:00 PM</strong></p>
-  <p>Calm by day · Warm by night</p>
-</section>
+  <section class="visit" id="visit">
+    <h3>Visit No. Nine</h3>
+    <p>Monday – Sunday · <strong>9:00 AM – 9:00 PM</strong></p>
+    <p>Calm by day · Warm by night</p>
+  </section>
 
-<footer>© No. Nine Café</footer>
+  <footer>© No. Nine Café</footer>
 
 </body>
+
 </html>
-
-
